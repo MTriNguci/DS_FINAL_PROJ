@@ -11,61 +11,28 @@ data = pd.read_csv('data\cleaned_data_edited.csv')
 df = data.copy()
 del df['CARNAME'], df['Model']
 
-from scipy.stats import pointbiserialr
+# Convert 'First registration' to the number of years until now
+df['First registration'] = df['First registration'].str[-4:].astype(int)
+df['First registration'] = 2023 - df['First registration']
 
 def correlation_ratio(df, dummies, target):
-    """Truyền vào cộ categoreis và hệ đo lường, trả về các giá trị danh sách hệ số tương quan"""
-    correlations = {}
-    p_values = {}
-    for dummy in dummies.columns:
-        corr, pval = pointbiserialr(df[target], dummies[dummy])
-        correlations[dummy] = corr
-        p_values[dummy] = pval
+    correlations = {dummy: pointbiserialr(df[target], dummies[dummy]) for dummy in dummies.columns}
+    sorted_correlations = sorted([(dummy, corr) for dummy, (corr, pval) in correlations.items() if pval < 0.05], key=lambda x: abs(x[1]), reverse=True)
+    print(sorted_correlations)
+    return sorted_correlations
 
-    # Kiểm định ý nghĩa thống kê
-    significant_dummies = [dummy for dummy in dummies.columns if p_values[dummy] < 0.05]
-
-    # Lựa chọn các dummy quan trọng
-    important_dummies = sorted([(dummy, correlations[dummy]) for dummy in significant_dummies], key=lambda x: abs(x[1]), reverse=True)
-
-    # Lấy ra các dummy có tương quan > 0.25 và chỉ lấy tối đa 10 biến
-    important_dummies = [dummy for dummy, corr in important_dummies if abs(corr) > 0.25][:10]
-    print(important_dummies)
-    return important_dummies
-
-
-def one_hot(df, col, target):
-    df = df.copy()
-    dummies = pd.get_dummies(df[col], prefix=col)
+def one_hot(df, col, target, multi=False):
+    dummies = df[col].str.get_dummies(sep='; ') if multi else pd.get_dummies(df[col], prefix=col)
     if len(dummies.columns) > 10:
-        top_cols = correlation_ratio(df, dummies, target)
+        top_cols = [dummy for dummy, corr in correlation_ratio(df, dummies, target) if abs(corr) > 0.25][:10]
         dummies = dummies[top_cols]
-    df = pd.concat([df, dummies], axis=1)
-    df = df.drop(col, axis=1)
-    return df
+    return pd.concat([df, dummies], axis=1).drop(col, axis=1)
 
-# Columns to encode
 cols = ['Make', 'Body color', 'Interior color', 'Interior material', 'Body', 'Doors', 'Fuel', 'Transmission', 'Drive type', 'Emission class', 'Condition']
 for col in cols:
     df = one_hot(df, col, 'Price(EUR)')
 
-# One-hot encoding for multi-selection column
-def one_hot_multi(df, col, target):
-    df = df.copy()
-    dummies = df[col].str.get_dummies(sep='; ')
-    # If column has more than 10 values then only take the values with the highest correlation
-    if len(dummies.columns) > 10:
-        top_cols = correlation_ratio(df, dummies, target)
-        dummies = dummies[top_cols]
-    df = pd.concat([df, dummies], axis=1)
-    df = df.drop(col, axis=1)
-    return df
-
-df = one_hot_multi(df, 'Tags', 'Price(EUR)')
-
-# Convert 'First registration' to the number of years until now
-df['First registration'] = df['First registration'].str[-4:].astype(int)
-df['First registration'] = 2023 - df['First registration']
+df = one_hot(df, 'Tags', 'Price(EUR)', multi=True)
 
 # Split data into training and test sets
 X = df.drop('Price(EUR)', axis=1)
@@ -73,7 +40,8 @@ y = df['Price(EUR)']
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
 # Initialize Random Forest model
-model = RandomForestRegressor(n_estimators=200, random_state=42)
+n = 850
+model = RandomForestRegressor(n_estimators=n, random_state=42)
 
 # Train the model
 model.fit(X_train, y_train)
@@ -84,5 +52,6 @@ predictions = model.predict(X_test)
 # Calculate Mean Absolute Error
 mae = mean_absolute_error(y_test, predictions)
 
+print(f"n_estimators: {n}")
 print(f"Mean Absolute Error: {mae}")
                               
