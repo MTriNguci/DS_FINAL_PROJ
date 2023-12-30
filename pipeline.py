@@ -15,7 +15,8 @@ y = df['Price(EUR)']
 
 # Định nghĩa các bước preprocessing như một transformer tùy chỉnh
 class Preprocessor(BaseEstimator, TransformerMixin):
-    def fit(self, X, y=None):
+    def fit(self, X, y):
+        self.y = y
         return self
 
     def transform(self, X, y=None):
@@ -29,11 +30,11 @@ class Preprocessor(BaseEstimator, TransformerMixin):
         # One-hot encoding cho các cột phân loại
         cols = ['Make', 'Body color', 'Interior color', 'Interior material', 'Body', 'Doors', 'Fuel', 'Transmission', 'Drive type', 'Emission class', 'Condition', 'Tags']
         for col in cols:
-            X = self.one_hot(X, col, y, multi=(col=='Tags'))
+            X = self.one_hot(X, col, multi=(col=='Tags'))
 
         return X
 
-    def correlation_ratio(self, df, dummies, y):
+    def correlation_ratio(self, df, dummies):
         # Khởi tạo một từ điển trống để lưu các giá trị tương quan
         correlations = {}
 
@@ -64,13 +65,13 @@ class Preprocessor(BaseEstimator, TransformerMixin):
         # Trả về kết quả
         return sorted_correlations
 
-    def one_hot(self, df, col, y, multi=False):
+
+    def one_hot(self, df, col, multi=False):
         dummies = df[col].str.get_dummies(sep='; ') if multi else pd.get_dummies(df[col], prefix=col)
         if len(dummies.columns) > 10:
-            top_cols = [dummy for dummy, corr in self.correlation_ratio(df, dummies, y) if abs(corr) > 0.25][:10]
+            top_cols = [dummy for dummy, corr in self.correlation_ratio(df, dummies) if abs(corr) > 0.25][:10]
             dummies = dummies[top_cols]
         return pd.concat([df, dummies], axis=1).drop(col, axis=1)
-
 
 
 # Chia dữ liệu thành tập huấn luyện và tập kiểm tra
@@ -96,7 +97,7 @@ score = pipeline.score(X_test, y_test)
 
 print(f"Score on test set: {score}")
 
-# Sử dụng cross validatio
+# Sử dụng cross validation
 scores = cross_val_score(pipeline, X, y, cv=5)
 
 # In ra điểm số cho mỗi fold
