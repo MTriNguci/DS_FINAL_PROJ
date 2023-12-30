@@ -29,21 +29,52 @@ class Preprocessor(BaseEstimator, TransformerMixin):
         # One-hot encoding cho các cột phân loại
         cols = ['Make', 'Body color', 'Interior color', 'Interior material', 'Body', 'Doors', 'Fuel', 'Transmission', 'Drive type', 'Emission class', 'Condition', 'Tags']
         for col in cols:
-            X = self.one_hot(X, col, multi=(col=='Tags'))
+            X = self.one_hot(X, col, y, multi=(col=='Tags'))
 
         return X
 
-    def correlation_ratio(self, df, dummies):
-        correlations = {dummy: pointbiserialr(df[dummy], y) for dummy in dummies.columns}
-        sorted_correlations = sorted([(dummy, corr) for dummy, (corr, pval) in correlations.items() if pval < 0.05], key=lambda x: abs(x[1]), reverse=True)
+    def correlation_ratio(self, df, dummies, y):
+        # Khởi tạo một từ điển trống để lưu các giá trị tương quan
+        correlations = {}
+
+        # Duyệt qua từng cột trong DataFrame 'dummies'
+        for dummy in dummies.columns:
+            # Tính toán hệ số tương quan và p-value
+            print(dummy)
+            print(dummies[dummy].shape)
+            print(self.y.shape)
+            corr, pval = pointbiserialr(dummies[dummy], self.y)
+
+            # Lưu hệ số tương quan và p-value vào từ điển
+            correlations[dummy] = (corr, pval)
+
+        # Khởi tạo một danh sách trống để lưu các giá trị tương quan đã được sắp xếp
+        sorted_correlations = []
+
+        # Duyệt qua từng phần tử trong từ điển 'correlations'
+        for dummy, (corr, pval) in correlations.items():
+            # Kiểm tra nếu p-value nhỏ hơn 0.05
+            if pval < 0.05:
+                # Thêm giá trị tương quan vào danh sách 'sorted_correlations'
+                sorted_correlations.append((dummy, corr))
+
+        # Sắp xếp danh sách 'sorted_correlations' theo thứ tự giảm dần của giá trị tuyệt đối hệ số tương quan
+        sorted_correlations.sort(key=lambda x: abs(x[1]), reverse=True)
+
+        # Trả về kết quả
         return sorted_correlations
 
-    def one_hot(self, df, col, multi=False):
+    def one_hot(self, df, col, y, multi=False):
         dummies = df[col].str.get_dummies(sep='; ') if multi else pd.get_dummies(df[col], prefix=col)
         if len(dummies.columns) > 10:
-            top_cols = [dummy for dummy, corr in self.correlation_ratio(df, dummies) if abs(corr) > 0.25][:10]
+            top_cols = [dummy for dummy, corr in self.correlation_ratio(df, dummies, y) if abs(corr) > 0.25][:10]
             dummies = dummies[top_cols]
         return pd.concat([df, dummies], axis=1).drop(col, axis=1)
+
+
+
+# Chia dữ liệu thành tập huấn luyện và tập kiểm tra
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
 # Bước 1: Preprocessing
 preprocessor = Preprocessor()
@@ -55,8 +86,7 @@ model = DecisionTreeRegressor()
 pipeline = Pipeline(steps=[('preprocessor', preprocessor),
                            ('model', model)])
 
-# Chia dữ liệu thành tập huấn luyện và tập kiểm tra
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
 
 # Huấn luyện pipeline với dữ liệu huấn luyện
 pipeline.fit(X_train, y_train)
@@ -66,7 +96,7 @@ score = pipeline.score(X_test, y_test)
 
 print(f"Score on test set: {score}")
 
-# Sử dụng cross validation
+# Sử dụng cross validatio
 scores = cross_val_score(pipeline, X, y, cv=5)
 
 # In ra điểm số cho mỗi fold
