@@ -1,0 +1,80 @@
+<html>
+        <head>
+            <link rel="stylesheet" type="text/css" href="../static/style.css">
+        </head>
+        <body>
+            <form method="POST">
+                Số ghế: <input type="number" name="Seats"> <br>
+                Công suất (kW): <input type="number" name="Power(kW)" step="0.01"> <br>
+                Lượng khí thải CO2 (g/km): <input type="number" name="CO2 emissions(g/km)" step="0.01" ><br>
+                Số km đã đi: <input type="number" name="Mileage(km)" step="0.01" ><br>
+                Mức tiêu thụ nhiên liệu (l/100km hoặc kWh/100km): <input type="number" name="Consumption(l/100km or kWh/100km)" step="0.01" ><br>
+                Dung tích động cơ (ccm): <input type="number" name="Engine capacity(ccm)"><br>
+                Số chủ xe trước: <input type="number" name="Previous owners"><br>
+                Số năm kể từ ngày đăng ký lần đầu: <input type="number" name="Year"><br>                
+                Đặc điểm nổi bật: <br>      
+                <input type="checkbox" name="top_equipment" value="Air suspension"> Air suspension<br>      
+                <input type="checkbox" name="top_equipment" value="Ventilated front seats"> Ventilated front seats<br>      
+                <input type="checkbox" name="top_equipment" value="Electric adjustable front seats"> Electric adjustable front seats<br>      
+                <input type="checkbox" name="top_equipment" value="Digital cockpit"> Digital cockpit<br>      
+                Màu nội thất: <select name="Interior color">
+                    <option value="Black interior">Black interior</option>
+                    <option value="Other interior color">Other interior color</option>
+                    <option value="Grey interior">Grey interior</option>
+                    <option value="Brown interior">Brown interior</option>
+                    <option value="Beige interior">Beige interior</option>
+                </select> <br>
+                Chất liệu nội thất: <select name="Interior material">
+                    <option value="Full leather interior">Full leather interior</option>
+                    <option value="Cloth interior">Cloth interior</option>
+                    <option value="Other interior material">Other interior material</option>
+                    <option value="Alcantara interior">Alcantara interior</option>
+                    <option value="Part leather interior">Part leather interior</option>
+                    <option value="Velour interior">Velour interior</option>
+                </select> <br>
+                Cửa: <select name="Doors">
+                    <option value="4/5 doors">4/5 doors</option>
+                    <option value="2/3 doors">2/3 doors</option>
+                    <option value="6/7 doors">6/7 doors</option>
+                </select> <br>
+                Nhiên liệu: <select name="Fuel">
+                    <option value="Electric">Electric</option>
+                    <option value="Petrol">Petrol</option>
+                    <option value="Hybrid">Hybrid</option>
+                    <option value="Diesel">Diesel</option>
+                    <option value="LPG">LPG</option>
+                    <option value="CNG">CNG</option>
+                    <option value="Other fuel type">Other fuel type</option>
+                </select> <br>
+                Hộp số: <select name="Transmission">
+                    <option value="Automatic">Automatic</option>
+                    <option value="Manual">Manual</option>
+                </select> <br>
+                Loại dẫn động: <select name="Drive type">
+                    <option value="4x2">4x2</option>
+                    <option value="4x4">4x4</option>
+                </select> <br>
+                Lớp khí thải: <select name="Emission class">
+                    <option value="No emission class">No emission class</option>
+                    <option value="Euro 6d">Euro 6d</option>
+                    <option value="Euro 6">Euro 6</option>
+                    <option value="Euro 4">Euro 4</option>
+                    <option value="Euro 6d-TEMP">Euro 6d-TEMP</option>
+                    <option value="Euro 6c">Euro 6c</option>
+                    <option value="Euro 5">Euro 5</option>
+                </select> <br>
+                Tình trạng: <select name="Condition">
+                    <option value="New">New</option>
+                    <option value="Demonstration car">Demonstration car</option>
+                    <option value="Used">Used</option>
+                </select> <br>
+                Nhà sản xuất: <select name="Make">
+                    <option value="Ferrari">Ferrari</option>
+                    <option value="Lamborghini">Lamborghini</option>
+                    <option value="Rolls-Royce">Rolls-Royce</option>
+                    <option value="Others">Others</option>
+                </select> <br> <br>
+                <input type="submit" value="Gửi">
+            </form>
+        </body>
+    </html>
