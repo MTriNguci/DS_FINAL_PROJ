@@ -29,7 +29,7 @@ Final project of Introdution to Data Science
 
 ## Project Plan
 
-[Google Docs - Plan Document](https://docs.google.com/document/d/1-DmU7-sRuqkwM8OxN_qgs3zILV9BRisZw_LR21Io6Xw)
+[Microsoft Word - Plan Document](https://studenthcmusedu-my.sharepoint.com/:w:/g/personal/21120574_student_hcmus_edu_vn/EUnRDvsk3rBJvzrS_zXXS5oB7yOvpTpfc2-1wlGLOT5EUQ?e=ouEwAQ&fbclid=IwAR2sAQmuRQFbJJjkDSVjgrI6e0bBOiV1Mrl6m59BDUijFu3uX6zhUuldO3E)
 
 ## Structure
 
