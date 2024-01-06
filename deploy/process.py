@@ -3,7 +3,8 @@ import pandas as pd
 
 
 #Đọc model đã train
-model = joblib.load('model.pkl')
+model_rf = joblib.load('model_rf.pkl')
+model_knn = joblib.load('model_knn.pkl')
 
 def handle_input(data):
     #tạo dataframe từ dữ liệu người dùng nhập vào
@@ -27,8 +28,9 @@ def handle_input(data):
         df[col] = pd.to_numeric(df[col])
 
     #Gọi model để dự đoán
-    y_pred = model.predict(df)
-    return round(y_pred[0], 3)
+    y1_pred = model_rf.predict(df)
+    y2_pred = model_knn.predict(df)
+    return round(y1_pred[0], 3), round(y2_pred[0],3)
     
 
 
