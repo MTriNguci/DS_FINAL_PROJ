@@ -61,6 +61,23 @@ Final project of Introdution to Data Science
 
 ## Environment
 
+| Name            |     Version   |
+|-----------------|---------------|
+| python          |     3.10.8    |
+| requests        |     2.28.1    |
+| requests-cache  |     1.1.0     |
+| beautifulsoup4  |     4.11.1    |
+| matplotlib      |     3.7.1     |
+| numpy           |     1.24.1    |
+| pandas          |     1.5.3     |
+| scikit-learn    |     1.2.2     |
+| seaborn         |     0.13.0    |
+| selenium        |     4.14.0    |
+| openpyxl        |     3.1.2     |
+| notebook        |     7.0.6     |
+| plotly          |     5.18.0    |
+| flask           |     3.0.0     |
+
 ## Usage
 
 1. Clone repository to your device
