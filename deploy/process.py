@@ -3,7 +3,7 @@ import pandas as pd
 
 
 #Đọc model đã train
-model = joblib.load('model.pkl')
+model = joblib.load('./deploy/model.pkl')
 
 def handle_input(data):
     #tạo dataframe từ dữ liệu người dùng nhập vào
