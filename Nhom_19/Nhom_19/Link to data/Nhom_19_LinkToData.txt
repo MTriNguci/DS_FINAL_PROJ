@@ -1,0 +1,9 @@
+Website mà nhóm sử dụng để crawl dữ liệu: https://carvago.com/cars
+
+Folder chứa data của nhóm: https://drive.google.com/drive/folders/1U1CGhvN8-2B6mL_H8FrzCyuwyCNwMZS1?usp=sharing
+Trong đó:
+	- File crawl_data.csv chứa data đã được crawl từ Website.
+	- File cleaned_data.csv chứa data đã được xử lý.
+	- File cleaned_add_data.csv chứa data được thêm vào để bổ trợ cho mô hình hóa dữ liệu.
+	- File link1.txt, link2.txt: chứa links tới thông tin chi tiêt các xe được cào
+	- File adding.scv: chứa dữ liệu crawl thêm để hỗ trợ chia thành 3 tập train,test, validate
