@@ -1,0 +1,27 @@
+9.1. Ý tưởng của mô hình rừng cây — Deep AI KhanhBlog
+https://phamdinhkhanh.github.io/deepai-book/ch_ml/RandomForest.html
+
+Hyperparameter Tuning the Random Forest in Python | by Will Koehrsen | Towards Data Science
+https://towardsdatascience.com/hyperparameter-tuning-the-random-forest-in-python-using-scikit-learn-28d2aa77dd74
+
+Hiểu các tham số chức năng rừng ngẫu nhiên trong scikit-learning
+https://ichi.pro/vi/hieu-cac-tham-so-chuc-nang-rung-ngau-nhien-trong-scikit-learning-10944379748609
+
+Guidelines for Removing and Handling Outliers in Data - Statistics By Jim
+https://statisticsbyjim.com/basics/remove-outliers/
+
+What is Considered to Be a "Strong" Correlation? - Statology
+https://www.statology.org/what-is-a-strong-correlation/#:~:text=In%20summary%3A%201%20As%20a%20rule%20of%20thumb%2C,the%20dataset%20along%20with%20a%20potential%20nonlinear%20relationship.
+
+Deploy mô hình Deep Learning lên production một cách đơn giản
+https://viblo.asia/p/deploy-mo-hinh-deep-learning-len-production-mot-cach-don-gian-aWj53kRP56m
+
+Flask Tutorial - GeeksforGeeks
+https://www.geeksforgeeks.org/flask-tutorial/
+
+Guide to Building an ML Pipeline in Python with Scikit-learn
+https://www.turing.com/kb/building-ml-pipeline-in-python-with-scikit-learn
+
+Pipelines - Python and scikit-learn - GeeksforGeeks
+https://www.geeksforgeeks.org/pipelines-python-and-scikit-learn/
+
