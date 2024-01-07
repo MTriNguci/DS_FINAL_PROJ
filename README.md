@@ -9,6 +9,7 @@ Final project of Introdution to Data Science
  - [Structure](#structure)
  - [Environment](#environment)
  - [Usage](#usage)
+ - [References](#references)
 
 ## Information
 
@@ -101,3 +102,10 @@ Final project of Introdution to Data Science
      ```shell
      python app.py
      ```
+## References
+Online:
+1. Link: [One Hot Encoding in Machine Learning](https://www.geeksforgeeks.org/ml-one-hot-encoding-of-datasets-in-python/)
+2. Link: [Chia Training Set và Testing Set với Python](https://tek4.vn/khoa-hoc/machine-learning-co-ban/chia-training-set-va-testing-set-voi-python)
+3. Link: [Cross-Validation](https://www.kaggle.com/code/alexisbcook/cross-validation?fbclid=IwAR1E3E5YGQa8yK6HEwi2gic8yD6xpv9GiC2Zq4qkbsdau81juvn5t5lyumY)
+4. Link: [Deep AI Khanhblog](https://phamdinhkhanh.github.io/deepai-book/intro.html)
+ 
